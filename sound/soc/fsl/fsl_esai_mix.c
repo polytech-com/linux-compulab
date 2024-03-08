@@ -148,7 +148,7 @@ static void fsl_esai_mix_buffer_from_fe_tx(struct snd_pcm_substream *substream, 
 	}
 
 	/* Get the active client */
-	spin_lock_irqsave(&rtd->card->dpcm_lock, flags);
+	spin_lock_irqsave(&esai->lock, flags);
 	for_each_dpcm_fe(rtd, substream->stream, dpcm) {
 		if (dpcm->be != rtd)
 			continue;
@@ -160,7 +160,7 @@ static void fsl_esai_mix_buffer_from_fe_tx(struct snd_pcm_substream *substream, 
 		if (i >= MAX_CLIENT_NUM)
 			break;
 	}
-	spin_unlock_irqrestore(&rtd->card->dpcm_lock, flags);
+	spin_unlock_irqrestore(&esai->lock, flags);
 
 	avail = fsl_esai_tx_avail(mix);
 	if (avail >= mix->buffer_bytes && elapse)
@@ -249,7 +249,7 @@ static void fsl_esai_split_buffer_from_be_rx(struct snd_pcm_substream *substream
 		mix->client[j] = NULL;
 	}
 	/* Get the active client */
-	spin_lock_irqsave(&rtd->card->dpcm_lock, flags);
+	spin_lock_irqsave(&esai->lock, flags);
 	for_each_dpcm_fe(rtd, substream->stream, dpcm) {
 		if (dpcm->be != rtd)
 			continue;
@@ -261,7 +261,7 @@ static void fsl_esai_split_buffer_from_be_rx(struct snd_pcm_substream *substream
 		if (i >= MAX_CLIENT_NUM)
 			break;
 	}
-	spin_unlock_irqrestore(&rtd->card->dpcm_lock, flags);
+	spin_unlock_irqrestore(&esai->lock, flags);
 
 	avail = fsl_esai_rx_avail(mix);
 	if (avail >= mix->buffer_bytes && elapse)
