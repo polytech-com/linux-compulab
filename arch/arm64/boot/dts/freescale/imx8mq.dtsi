@@ -1444,14 +1444,10 @@
 			phys = <&usb3_phy1>, <&usb3_phy1>;
 			phy-names = "usb2-phy", "usb3-phy";
 			power-domains = <&pgc_otg2>;
-<<<<<<< HEAD
 			usb3-resume-missing-cas;
 			snps,power-down-scale = <2>;
 			snps,parkmode-disable-ss-quirk;
 			snps,dis_rxdet_inp3_quirk;
-=======
-			snps,parkmode-disable-ss-quirk;
->>>>>>> v5.15.143
 			status = "disabled";
 		};
 
