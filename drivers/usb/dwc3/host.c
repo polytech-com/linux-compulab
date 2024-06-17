@@ -9,8 +9,11 @@
 
 #include <linux/acpi.h>
 #include <linux/platform_device.h>
+#include <linux/usb.h>
+#include <linux/usb/hcd.h>
 
 #include "../host/xhci.h"
+#include "../host/xhci-plat.h"
 
 #include "core.h"
 
@@ -188,6 +191,7 @@ err:
 
 void dwc3_host_exit(struct dwc3 *dwc)
 {
+	dwc3_enable_susphy(dwc, false);
 	platform_device_unregister(dwc->xhci);
 	dwc->xhci = NULL;
 }
